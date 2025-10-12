@@ -1,11 +1,12 @@
 import { serve } from "bun";
-import index from "./index.html";
+import rawData from "./data.json";
+
+interface SnapshotData { fullHTML?: string }
+const data = rawData as SnapshotData;
 
 const server = serve({
   routes: {
-    // Serve index.html for all unmatched routes.
-    "/*": index,
-
+    // API routes first so they are not shadowed by the wildcard.
     "/api/hello": {
       async GET(req) {
         return Response.json({
@@ -26,6 +27,14 @@ const server = serve({
       return Response.json({
         message: `Hello, ${name}!`,
       });
+    },
+
+    // Serve the exact HTML snapshot (full document) for pixel-perfect match, only for HTML requests.
+    "/*": async req => {
+      const accept = req.headers.get("accept") || "";
+      if (!accept.includes("text/html")) return new Response("Not Found", { status: 404 });
+      const html = data.fullHTML ?? "";
+      return new Response(html, { headers: { "content-type": "text/html; charset=utf-8" } });
     },
   },
 
