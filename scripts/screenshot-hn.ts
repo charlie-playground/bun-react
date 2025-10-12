@@ -5,27 +5,19 @@ import { join } from "node:path";
 async function takeScreenshot() {
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1280, height: 2000 } });
-
   try {
-    await page.goto("http://localhost:3000/", { waitUntil: "load" });
+    await page.goto("https://news.ycombinator.com/", { waitUntil: "load" });
     await page.waitForLoadState("networkidle");
 
-    // Create screenshots directory if it doesn't exist
     await mkdir("screenshots", { recursive: true });
 
-    // Generate filename with current date and time
     const now = new Date();
-    const timestamp = now
-      .toISOString()
-      .replace(/:/g, "-")
-      .replace(/\./g, "-");
-    const filename = `screenshot-${timestamp}.png`;
+    const timestamp = now.toISOString().replace(/:/g, "-").replace(/\./g, "-");
+    const filename = `hn-${timestamp}.png`;
     const filepath = join("screenshots", filename);
 
-    // Take screenshot
     await page.screenshot({ path: filepath, fullPage: true });
-
-    console.log(`Screenshot saved to: ${filepath}`);
+    console.log(`HN screenshot saved to: ${filepath}`);
   } finally {
     await browser.close();
   }
