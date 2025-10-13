@@ -41,8 +41,15 @@ async function takeScreenshot() {
 
     console.log(`Screenshot saved to: ${filepath}`);
   } finally {
-    await context.close();
-    await browser.close();
+    const results = await Promise.allSettled([
+      (async () => {
+        try { await context.close(); } catch (e) { console.error("context.close failed", e); }
+      })(),
+      (async () => {
+        try { await browser.close(); } catch (e) { console.error("browser.close failed", e); }
+      })(),
+    ]);
+    results;
   }
 }
 
