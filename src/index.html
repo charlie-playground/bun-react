@@ -4,8 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="./logo.svg" />
-    <title>Bun + React</title>
-    <script type="module" src="./frontend.tsx" async></script>
+    <title>Reference Clone</title>
+
+    <!-- Inter font (exact match request) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        /* Enforce Inter across the page */
+        font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        /* Avoid scrollbars shifting pixels in screenshots */
+        overflow: hidden;
+        /* Improve rendering consistency */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+      /* Remove inline-image baseline gap that can cause off-by-1px layout shifts */
+      img { display: block; }
+    </style>
+
+    <script type="module" src="./frontend.tsx"></script>
   </head>
   <body>
     <div id="root"></div>

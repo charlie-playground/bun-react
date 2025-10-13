@@ -9,6 +9,11 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
 
+// Load global styles and Tailwind utilities for the app. Bun's Tailwind plugin
+// (configured in bunfig.toml) will process these in dev and build.
+import "../styles/globals.css";
+import "./index.css";
+
 const elem = document.getElementById("root")!;
 const app = (
   <StrictMode>
