@@ -1,0 +1,4 @@
+$ bun --hot src/index.tsx
+🚀 Server running at http://localhost:3000/
+Bundled page in 76ms: src/index.html
+error: script "dev" was terminated by signal SIGTERM (Polite quit request)
