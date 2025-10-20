@@ -3,12 +3,12 @@ import { mkdir } from "node:fs/promises";
 import { join } from "node:path";
 
 async function takeScreenshot() {
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({ viewport: { width: 1668, height: 966 } });
   const page = await context.newPage();
 
   try {
-    await page.goto("http://localhost:3000/", { waitUntil: "networkidle" });
+    await page.goto("http://localhost:3000/", { waitUntil: "networkidle", timeout: 30_000 });
 
     // Create screenshots directory if it doesn't exist
     await mkdir("screenshots", { recursive: true });

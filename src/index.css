@@ -18,6 +18,9 @@ body::before {
   z-index: -1;
   pointer-events: none;
   /* tiny dots every 24px; adapts to theme via foreground color */
+  /* fallback for browsers without color-mix() support */
+  background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.06) 1px, transparent 1px);
+  /* preferred: theme-aware dot color */
   background-image: radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--foreground) 20%, transparent) 1px, transparent 1px);
   background-size: 24px 24px;
 }
