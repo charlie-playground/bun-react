@@ -4,10 +4,11 @@ import { join } from "node:path";
 
 async function takeScreenshot() {
   const browser = await chromium.launch();
-  const page = await browser.newPage();
+  const context = await browser.newContext({ viewport: { width: 1668, height: 966 } });
+  const page = await context.newPage();
 
   try {
-    await page.goto("http://localhost:3000/");
+    await page.goto("http://localhost:3000/", { waitUntil: "networkidle" });
 
     // Create screenshots directory if it doesn't exist
     await mkdir("screenshots", { recursive: true });
@@ -26,6 +27,7 @@ async function takeScreenshot() {
 
     console.log(`Screenshot saved to: ${filepath}`);
   } finally {
+    await context.close();
     await browser.close();
   }
 }
